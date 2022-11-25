@@ -109,6 +109,7 @@ class Evento():
         with open("grupos.txt", "wb") as file:
             pickle.dump(self, file)
             print("\nSE SERIALIZARÓN LOS GRUPO CON ÉXITO\n")
+        return
     
     def deserializar_grupos(self):
         with open("grupos.txt", "rb") as file:
@@ -130,8 +131,8 @@ class Evento():
             print("\nGrupoA: {} grupos, GrupoB: {} grupos, GrupoC: {} grupos, Total grupos: {}\n".format(self.cantidad_por_grupo["GrupoA"], self.cantidad_por_grupo["GrupoB"],self.cantidad_por_grupo["GrupoC"], self.cantidad_total_grupos))
             return self.cantidad_total_grupos, self.cantidad_por_grupo
 
-    def escribir_archivo_grupos(self):
-        with open("gruposordenados.txt", "w+") as file:
+    def escribir_archivo_grupos_por_tipo(self):   # Por cada tipo de grupo las personas que hay
+        with open("gruposclasificados.txt", "w+") as file:
             grupo_a = []
             grupo_b = []
             grupo_c = []
@@ -143,13 +144,32 @@ class Evento():
                 elif issubclass(type(grupo), GrupoC):
                     grupo_c.append(grupo)
             grupos_clasificados = [grupo_a, grupo_b, grupo_c]
-            for grupo in grupo_a:
-                file.write(f"{grupo.persona_1.nombre}\n")
+            file.write("GRUPO A\n\n")
+            modulos_ayudas.grupos_clasificados(file, grupo_a)
+            file.write("\nGRUPO B\n\n")
+            modulos_ayudas.grupos_clasificados(file, grupo_b)
+            file.write("\nGRUPO C\n\n")
+            modulos_ayudas.grupos_clasificados(file, grupo_c)
         return
+
+    def escribir_archivo_grupos_general(self):
+        with open("gruposordenados.txt", "w+") as file:
+            numero_grupo = 0
+            for grupo in self.grupos_invitados:
+                numero_grupo += 1
+                if issubclass(type(grupo), GrupoA):
+                    modulos_ayudas.grupos_a_ordenados(file, grupo, numero_grupo)
+                elif issubclass(type(grupo), GrupoB):
+                    modulos_ayudas.grupos_b_ordenados(file, grupo, numero_grupo)
+                elif issubclass(type(grupo), GrupoC):
+                    modulos_ayudas.grupos_c_ordenados(file, grupo, numero_grupo)
+        return
+
 
 evento_uno = Evento()
 evento_uno.crear_invitados()
 evento_uno.mostrar_grupos()
 evento_uno.serializar_grupos()
 evento_uno.deserializar_grupos()
-evento_uno.escribir_archivo_grupos()
+evento_uno.escribir_archivo_grupos_por_tipo()
+evento_uno.escribir_archivo_grupos_general()
