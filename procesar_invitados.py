@@ -130,8 +130,26 @@ class Evento():
             print("\nGrupoA: {} grupos, GrupoB: {} grupos, GrupoC: {} grupos, Total grupos: {}\n".format(self.cantidad_por_grupo["GrupoA"], self.cantidad_por_grupo["GrupoB"],self.cantidad_por_grupo["GrupoC"], self.cantidad_total_grupos))
             return self.cantidad_total_grupos, self.cantidad_por_grupo
 
+    def escribir_archivo_grupos(self):
+        with open("gruposordenados.txt", "w+") as file:
+            grupo_a = []
+            grupo_b = []
+            grupo_c = []
+            for grupo in self.grupos_invitados:
+                if issubclass(type(grupo), GrupoA):
+                    grupo_a.append(grupo)
+                elif issubclass(type(grupo), GrupoB):
+                    grupo_b.append(grupo)
+                elif issubclass(type(grupo), GrupoC):
+                    grupo_c.append(grupo)
+            grupos_clasificados = [grupo_a, grupo_b, grupo_c]
+            for grupo in grupo_a:
+                file.write(f"{grupo.persona_1.nombre}\n")
+        return
+
 evento_uno = Evento()
 evento_uno.crear_invitados()
 evento_uno.mostrar_grupos()
 evento_uno.serializar_grupos()
 evento_uno.deserializar_grupos()
+evento_uno.escribir_archivo_grupos()
