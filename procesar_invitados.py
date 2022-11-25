@@ -127,7 +127,7 @@ class Evento():
                     cantidad_grupo_c += 1
             self.cantidad_por_grupo = {"GrupoA": cantidad_grupo_a, "GrupoB": cantidad_grupo_b, "GrupoC": cantidad_grupo_c} # dict[Grupo:Cantidad]
             self.cantidad_total_grupos = cantidad_grupo_a + cantidad_grupo_b + cantidad_grupo_c
-            print("\nGrupoA: {} grupos, GrupoB: {} grupos, GrupoC: {} grupos, Total: {}\n".format(self.cantidad_por_grupo["GrupoA"], self.cantidad_por_grupo["GrupoB"],self.cantidad_por_grupo["GrupoC"], self.cantidad_total_grupos))
+            print("\nGrupoA: {} grupos, GrupoB: {} grupos, GrupoC: {} grupos, Total grupos: {}\n".format(self.cantidad_por_grupo["GrupoA"], self.cantidad_por_grupo["GrupoB"],self.cantidad_por_grupo["GrupoC"], self.cantidad_total_grupos))
             return self.cantidad_total_grupos, self.cantidad_por_grupo
 
 evento_uno = Evento()
@@ -135,5 +135,3 @@ evento_uno.crear_invitados()
 evento_uno.mostrar_grupos()
 evento_uno.serializar_grupos()
 evento_uno.deserializar_grupos()
-print(evento_uno.cantidad_total_grupos)
-print(evento_uno.cantidad_por_grupo)
