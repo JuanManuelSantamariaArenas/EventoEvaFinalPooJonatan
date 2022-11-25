@@ -22,7 +22,7 @@ class GrupoA(Grupo):
         self.persona_1 = persona_1
 
     def presentar(self):
-        print(f"Nombre: {self.persona_1.nombre}, Edad: {self.persona_1.edad}")
+        print(f"Grupo A = Nombre: {self.persona_1.nombre}, Edad: {self.persona_1.edad}")
 
 """     def __str__(self) -> str:
         return f"Nombre: {self.persona_1.nombre}, Edad: {self.persona_1.edad}" """
@@ -34,7 +34,7 @@ class GrupoB(Grupo):
         self.persona_2 = persona_2
     
     def presentar(self):
-        print(f"Persona uno: {self.persona_1.nombre} y Persona dos: {self.persona_2.nombre}")
+        print(f"Grupo B = Persona uno: {self.persona_1.nombre} y Persona dos: {self.persona_2.nombre}")
 
 """     def __str__(self) -> str:
         return f"Persona uno: {self.persona_1.nombre} y Persona dos: {self.persona_2.nombre}" """
@@ -47,7 +47,7 @@ class GrupoC(Grupo):
         self.persona_3 = persona_3
     
     def presentar(self):
-        print(f"Persona uno: {self.persona_1.nombre}, Persona dos: {self.persona_2.nombre} y  Persona tres: {self.persona_3.nombre}")
+        print(f"Grupo C = Persona uno: {self.persona_1.nombre}, Persona dos: {self.persona_2.nombre} y Persona tres: {self.persona_3.nombre}")
 
 """     def __str__(self) -> str:
         return f"Persona uno: {self.persona_1.nombre}, Persona dos: {self.persona_2.nombre} y  Persona tres: {self.persona_3.nombre}" """
