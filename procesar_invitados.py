@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 from abc import ABC, abstractmethod
+import pickle
 import modulos_ayudas
 
 
@@ -56,6 +57,8 @@ class Evento():
 
     def __init__(self):
         self.grupos_invitados = []
+        self.cantidad_por_grupo = {}
+        self.cantidad_total_grupos = 0
 
     def crear_invitados(self) -> list[Grupo]:
         grupos: list[Grupo] = [] 
@@ -102,6 +105,35 @@ class Evento():
             grupo.presentar()
         return
 
+    def serializar_grupos(self):
+        with open("grupos.txt", "wb") as file:
+            pickle.dump(self, file)
+            print("\nSE SERIALIZARÓN LOS GRUPO CON ÉXITO\n")
+    
+    def deserializar_grupos(self):
+        with open("grupos.txt", "rb") as file:
+            grupos_anteriores = pickle.load(file)
+            self.grupos_invitados = grupos_anteriores.grupos_invitados
+            print("\nSE DESEARIALIZARÓN LOS GRUPOS CON ÉXITO\n")
+            cantidad_grupo_a = 0
+            cantidad_grupo_b = 0
+            cantidad_grupo_c = 0
+            for grupo in self.grupos_invitados:
+                if issubclass(type(grupo), GrupoA):
+                    cantidad_grupo_a += 1
+                elif issubclass(type(grupo), GrupoB):
+                    cantidad_grupo_b += 1
+                elif issubclass(type(grupo), GrupoC):
+                    cantidad_grupo_c += 1
+            self.cantidad_por_grupo = {"GrupoA": cantidad_grupo_a, "GrupoB": cantidad_grupo_b, "GrupoC": cantidad_grupo_c} # dict[Grupo:Cantidad]
+            self.cantidad_total_grupos = cantidad_grupo_a + cantidad_grupo_b + cantidad_grupo_c
+            print("\nGrupoA: {} grupos, GrupoB: {} grupos, GrupoC: {} grupos, Total: {}\n".format(self.cantidad_por_grupo["GrupoA"], self.cantidad_por_grupo["GrupoB"],self.cantidad_por_grupo["GrupoC"], self.cantidad_total_grupos))
+            return self.cantidad_total_grupos, self.cantidad_por_grupo
+
 evento_uno = Evento()
 evento_uno.crear_invitados()
 evento_uno.mostrar_grupos()
+evento_uno.serializar_grupos()
+evento_uno.deserializar_grupos()
+print(evento_uno.cantidad_total_grupos)
+print(evento_uno.cantidad_por_grupo)
