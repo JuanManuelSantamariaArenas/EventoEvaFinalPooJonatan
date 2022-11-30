@@ -43,3 +43,10 @@ def grupos_c_ordenados(file, grupo, numero_grupo):
     file.write(f"{texto_p2}\n")
     file.write(f"{texto_p3}\n")
     return
+
+def leer_invitados_clasificados(tipo_grupo, info):
+    nombre_invitado = info[2]
+    edad_invitado = list(info[4])
+    edad_invitado = str(edad_invitado[0] + edad_invitado[1])
+    info_invitado = [tipo_grupo, nombre_invitado, edad_invitado]
+    return info_invitado

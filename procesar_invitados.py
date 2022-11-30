@@ -178,22 +178,15 @@ class Evento():
                 if len(info) == 2:
                     tipo_grupo = list(info[1])
                     tipo_grupo = tipo_grupo[0]
-                if tipo_grupo == "A" and len(info) > 2:
-                    nombre_invitado = info[2]
-                    edad_invitado = list(info[4])
-                    edad_invitado = str(edad_invitado[0] + edad_invitado[1])
-                    invitado = Persona(nombre_invitado, edad_invitado)
-                    grupo_A.append(invitado)
-                elif tipo_grupo == "B" and len(info) > 2:
-                    nombre_invitado = info[2]
-                    edad_invitado = info[4]
-                    invitado = Persona(nombre_invitado, edad_invitado)
-                    grupo_B.append(invitado)
-                elif tipo_grupo == "C" and len(info) > 2:
-                    nombre_invitado = info[2]
-                    edad_invitado = info[4]
-                    invitado = Persona(nombre_invitado, edad_invitado)
-                    grupo_C.append(invitado)
+                if len(info) > 2:
+                    info_invitado = modulos_ayudas.leer_invitados_clasificados(tipo_grupo, info)
+                    invitado = Persona(info_invitado[1], info_invitado[2])
+                    if info_invitado[0] == "A":
+                        grupo_A.append(invitado)
+                    elif info_invitado[0] == "B":
+                        grupo_B.append(invitado)
+                    elif info_invitado[0] == "C":
+                        grupo_C.append(invitado)
             grupos = [grupo_A, grupo_B, grupo_C]
         return
 
