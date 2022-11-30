@@ -60,6 +60,8 @@ class Evento():
         self.cantidad_por_grupo = {}
         self.cantidad_total_grupos = 0
 
+
+
     def crear_invitados(self) -> list[Grupo]:
         grupos: list[Grupo] = [] 
 
@@ -165,11 +167,43 @@ class Evento():
                     modulos_ayudas.grupos_c_ordenados(file, grupo, numero_grupo)
         return
 
+    def leer_grupos_clasificados(self):
+        with open("gruposclasificados.txt", encoding="utf8") as file:
+            grupo_A = []
+            grupo_B = []
+            grupo_C = []
+            grupos = []
+            for linea in file:
+                info = linea.split(" ")
+                if len(info) == 2:
+                    tipo_grupo = list(info[1])
+                    tipo_grupo = tipo_grupo[0]
+                if tipo_grupo == "A" and len(info) > 2:
+                    nombre_invitado = info[2]
+                    edad_invitado = list(info[4])
+                    edad_invitado = str(edad_invitado[0] + edad_invitado[1])
+                    invitado = Persona(nombre_invitado, edad_invitado)
+                    grupo_A.append(invitado)
+                elif tipo_grupo == "B" and len(info) > 2:
+                    nombre_invitado = info[2]
+                    edad_invitado = info[4]
+                    invitado = Persona(nombre_invitado, edad_invitado)
+                    grupo_B.append(invitado)
+                elif tipo_grupo == "C" and len(info) > 2:
+                    nombre_invitado = info[2]
+                    edad_invitado = info[4]
+                    invitado = Persona(nombre_invitado, edad_invitado)
+                    grupo_C.append(invitado)
+            grupos = [grupo_A, grupo_B, grupo_C]
+        return
 
-evento_uno = Evento()
-evento_uno.crear_invitados()
-evento_uno.mostrar_grupos()
-evento_uno.serializar_grupos()
-evento_uno.deserializar_grupos()
-evento_uno.escribir_archivo_grupos_por_tipo()
-evento_uno.escribir_archivo_grupos_general()
+def iniciar_evento():
+    evento_uno = Evento()
+    evento_uno.crear_invitados()
+    evento_uno.mostrar_grupos()
+    evento_uno.serializar_grupos()
+    evento_uno.deserializar_grupos()
+    evento_uno.escribir_archivo_grupos_por_tipo()
+    evento_uno.escribir_archivo_grupos_general()
+    evento_uno.leer_grupos_clasificados()
+iniciar_evento()
