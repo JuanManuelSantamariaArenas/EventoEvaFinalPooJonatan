@@ -61,8 +61,6 @@ class Evento():
         self.cantidad_por_grupo = {}
         self.cantidad_total_grupos = 0
 
-
-
     def crear_invitados(self) -> list[Grupo]:
         grupos: list[Grupo] = [] 
         with open("invitados.txt", encoding="utf8") as file:
@@ -100,22 +98,6 @@ class Evento():
                 # print(grupos)
         self.grupos_invitados = grupos
         return self.grupos_invitados
-    
-    def top_tres_letras_mas_frecuentes(self):
-        with open("invitados.txt", encoding="utf8") as file:
-            alfabeto = list(string.ascii_lowercase)
-            alfabeto = modulos_ayudas.crear_dic_alfabeto(alfabeto)
-            for linea in file:
-                info = linea.split(" ")
-                info.pop()
-                for invitado in info:
-                    nombre_invitado = invitado.split(",")
-                    nombre_invitado.pop()
-                    cantidad_por_letras = modulos_ayudas.top_tres_letras_mas_frecuentes_p1(alfabeto, nombre_invitado)
-                    alfabeto = cantidad_por_letras
-            modulos_ayudas.top_tres_letras_mas_frecuentes_p2(alfabeto)
-        return
-    
     
     def mostrar_grupos(self):
         for grupo in self.grupos_invitados:
@@ -205,6 +187,21 @@ class Evento():
                         grupo_C.append(invitado)
             grupos = [grupo_A, grupo_B, grupo_C]
         return    
+
+    def top_tres_letras_mas_frecuentes(self):
+        with open("invitados.txt", encoding="utf8") as file:
+            alfabeto = list(string.ascii_lowercase)
+            alfabeto = modulos_ayudas.crear_dic_alfabeto(alfabeto)
+            for linea in file:
+                info = linea.split(" ")
+                info.pop()
+                for invitado in info:
+                    nombre_invitado = invitado.split(",")
+                    nombre_invitado.pop()
+                    cantidad_por_letras = modulos_ayudas.top_tres_letras_mas_frecuentes_p1(alfabeto, nombre_invitado)
+                    alfabeto = cantidad_por_letras
+            modulos_ayudas.top_tres_letras_mas_frecuentes_p2(alfabeto)
+        return
 
 def iniciar_evento():
     evento_uno = Evento()
